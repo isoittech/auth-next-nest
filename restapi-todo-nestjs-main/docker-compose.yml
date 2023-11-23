@@ -1,15 +1,17 @@
-version: '3.8'
+version: "3.1"
+
 services:
-  dev-postgres:
-    image: postgres:14.4-alpine
-    ports:
-      - 5434:5432
-    environment:
-      POSTGRES_USER: udemy
-      POSTGRES_PASSWORD: udemy
-      POSTGRES_DB: udemy
+  db:
+    image: postgres:15
     restart: always
-    networks:
-      - lesson
-networks:
-  lesson:
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: udemy
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
