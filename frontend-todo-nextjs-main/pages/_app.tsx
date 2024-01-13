@@ -17,15 +17,18 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
   axios.defaults.withCredentials = true
-  useEffect(() => {
-    const getCsrfToken = async () => {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/csrf`
-      )
-      axios.defaults.headers.common['csrf-token'] = data.csrfToken
-    }
-    getCsrfToken()
-  }, [])
+  // ------------------
+  // 今は、SameSiteはSet-Cookieヘッダの属性で「Lax」を設定すれば CSRF 対策ができるらしいので無効化した
+  // ------------------
+  // useEffect(() => {
+  //   const getCsrfToken = async () => {
+  //     const { data } = await axios.get(
+  //       `${process.env.API_URL}/auth/csrf`
+  //     )
+  //     axios.defaults.headers.common['csrf-token'] = data.csrfToken
+  //   }
+  //   getCsrfToken()
+  // }, [])
   return (
     <QueryClientProvider client={queryClient}>
       <MantineProvider
